@@ -20,9 +20,11 @@ namespace GameOfLife
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel vm = new MainViewModel();
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = vm;
         }
     }
 }

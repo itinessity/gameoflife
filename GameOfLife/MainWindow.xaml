@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="GameOfLife">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Button Content="Start" Width="auto" Command="{Binding RunCommand}"/>
+        </StackPanel>
+        <DataGrid DockPanel.Dock="Top"
+            ItemsSource="{Binding ItemsToDraw, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            />
+    </DockPanel>
 </Window>
