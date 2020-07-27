@@ -8,6 +8,11 @@ namespace GameOfLife
     {
         public List<LifeCell> AliveCells { get; set; }
 
+        public LifeContainer()
+        {
+            AliveCells = new List<LifeCell>();
+        }
+
         public LifeContainer Copy()
         {
             var copy = new LifeContainer();

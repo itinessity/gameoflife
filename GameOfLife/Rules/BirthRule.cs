@@ -10,6 +10,10 @@ namespace GameOfLife.Rules
     {
         public byte CountAliveCells { get; private set; }
 
+        /// <summary>
+        /// If near are N alive cell, then new cell can be created.
+        /// </summary>
+        /// <param name="alives">Count life sell for giving new cell</param>
         public BirthRule(byte alives)
         {
             CountAliveCells = alives;

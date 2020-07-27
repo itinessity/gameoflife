@@ -14,17 +14,17 @@ namespace GameOfLife
 
         private LifeRule Rule { get; set; }
 
-        public LifeSurround(LifeContainer alicecells)
+        public LifeSurround(LifeContainer alicecells, LifeRule rule)
         {
             Cells = alicecells;
-
+            Rule = rule;
         }
 
         public IEnumerable<LifeCell> Get(LifeCell cell)
         {
             var area = Surroundigs(cell.Coordinate);
 
-            var result = Cells.AliveCells.Where(x => area.Contains(x.Coordinate)).Take(Rule.CountNeibours);
+            var result = Cells.AliveCells.Where(x => area.Where(y=> y.X == x.Coordinate.X && y.Y == x.Coordinate.Y).Count() != 0).Take(Rule.CountNeibours);
 
             return result;
         }
@@ -34,7 +34,7 @@ namespace GameOfLife
             var result = new List<LifeCell>();
 
             var area = Surroundigs(cell.Coordinate);
-            var notlive = area.Where(x => !Cells.AliveCells.Select(y => y.Coordinate).Contains(x));
+            var notlive = area.Where(x => Cells.AliveCells.Where(y => y.Coordinate.X == x.X && x.Y == y.Coordinate.Y).Count() == 0);
 
             foreach (var point in notlive)
             {

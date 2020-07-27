@@ -19,6 +19,9 @@ namespace GameOfLife
         public LifeAlgoritm(LifeRule gamerule)
         {
             Rule = gamerule;
+            Now = new LifeContainer();
+            Previous = new LifeContainer();
+
         }
 
         public bool Step()
@@ -34,25 +37,33 @@ namespace GameOfLife
 
         public void StepDeath()
         {
-            var surroundcheck = new LifeSurround(Now);
+            var fordeath = new List<LifeCell>();
+
+            var surroundcheck = new LifeSurround(Now, Rule);
 
             foreach(var cell in Now.AliveCells)
             {
                 var surroundings = surroundcheck.Get(cell);
 
                 if (surroundings.Count() < Rule.RuleForDeath.CountMinLifeCells 
-                    && surroundings.Count() > Rule.RuleForDeath.CountMaxLifeCells)
+                    || surroundings.Count() > Rule.RuleForDeath.CountMaxLifeCells)
                 {
-                    Now.AliveCells.Remove(cell);
+                    fordeath.Add(cell);
                 }
             }
+
+            foreach (var cell in fordeath)
+            {
+                Now.AliveCells.Remove(cell);
+            }
+
         }
 
         public void StepLife()
         {
             var NewLife = new List<LifeCell>();
 
-            var surroundcheck = new LifeSurround(Now);
+            var surroundcheck = new LifeSurround(Now, Rule);
 
             foreach (var cell in Now.AliveCells)
             {
@@ -64,6 +75,7 @@ namespace GameOfLife
 
                     if (surroundingspotential.Count() >= Rule.RuleForBirth.CountAliveCells)
                     {
+                        if (NewLife.Where(x=> x.Coordinate.X == maybecell.Coordinate.X && x.Coordinate.Y == maybecell.Coordinate.Y).Count() == 0)
                         NewLife.Add(maybecell);
                     }
                 }
@@ -79,7 +91,7 @@ namespace GameOfLife
             if (Now.AliveCells.Count == 0)
                 result = false;
 
-            if (Now == Previous)
+            if (Now.Equals(Previous))
                 result = false;
 
             return result;

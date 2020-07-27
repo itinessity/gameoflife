@@ -12,10 +12,15 @@ namespace GameOfLife.Rules
 
         public byte CountMinLifeCells { get; private set; }
 
+        /// <summary>
+        /// If alive cells are more then N and less then M then cell is dying
+        /// </summary>
+        /// <param name="min">Minimum alive count</param>
+        /// <param name="max">Maximum alive count</param>
         public DeathRule(byte min, byte max)
         {
             CountMinLifeCells = min;
-            CountMinLifeCells = max;
+            CountMaxLifeCells = max;
         }
     }
 }
