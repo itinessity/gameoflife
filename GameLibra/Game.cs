@@ -11,6 +11,9 @@ namespace GameOfLife
     public class Game
     {
         private LifeAlgoritm Algoritm { get; set; }
+
+        public int CountSteps { get; set; }
+
         public Game()
         {
             var birthrule = new BirthRule(3);
@@ -25,13 +28,20 @@ namespace GameOfLife
             Algoritm = new LifeAlgoritm(rule);
         }
 
+
+        public bool Step()
+        {
+            CountSteps++;
+            return Algoritm.Step();
+        }
+
         public void Run()
         {
-            var countsteps = 0;
+            var CountSteps = 0;
 
             while (Algoritm.Step())
             {
-                countsteps++;
+                CountSteps++;
             }
         }
 
@@ -44,5 +54,16 @@ namespace GameOfLife
         {
             Algoritm.Now.AliveCells.AddRange(items);
         }
+
+        public void AddItem(int x, int y)
+        {
+            var newcell = new LifeCell()
+            {
+                Coordinate = new Point(x, y)
+            };
+
+            Algoritm.Now.AliveCells.Add(newcell);
+        }
+
     }
 }

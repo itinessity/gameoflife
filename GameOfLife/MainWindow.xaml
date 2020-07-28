@@ -2,16 +2,26 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:GameOfLife"
         mc:Ignorable="d"
         Title="GameOfLife">
+    <Window.Resources>
+        <RadialGradientBrush x:Key="cellBrush" GradientOrigin="0.5,0.5" Center="0.5,0.5" 
+          RadiusX="0.5" RadiusY="0.5">
+            <GradientStop Color="LemonChiffon" Offset="0" />
+            <GradientStop Color="IndianRed" Offset="1" />
+        </RadialGradientBrush>
+    </Window.Resources>
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Button Content="Start" Width="auto" Command="{Binding RunCommand}"/>
+            <Button Content="Next" Width="auto" Command="{Binding RunCommand}"/>
+            <Button Content="Clear" Width="auto" Command="{Binding RunCommand}"/>
+            <Label Content="Generations:"></Label>
+            <Label Content="{Binding StepCount}"></Label>
         </StackPanel>
-        <DataGrid DockPanel.Dock="Top"
-            ItemsSource="{Binding ItemsToDraw, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-            />
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ContentPresenter Content="{Binding View}"></ContentPresenter>
+        </ScrollViewer>
     </DockPanel>
 </Window>

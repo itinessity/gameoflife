@@ -55,9 +55,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Game.cs" />
+    <Compile Include="View\Dimensions.cs" />
+    <Compile Include="View\DimensionsTypeConverter.cs" />
+    <Compile Include="View\LifeModel.cs" />
+    <Compile Include="View\LifeTorus.cs" />
+    <Compile Include="View\LifeView.cs" />
     <Compile Include="MainViewModel.cs" />
+    <Compile Include="MVVM\BindableBase.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
+    <Compile Include="View\Location.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,5 +109,6 @@
       <Name>GameLibra</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
