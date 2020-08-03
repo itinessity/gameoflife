@@ -69,7 +69,19 @@ namespace GameOfLife.View
             {
 				var tor = (LifeTorus)obj;
 
-				return tor._array.Equals(_array);
+				var eq = true;
+
+				if (tor._array.Count != _array.Count)
+				{
+					eq = false;
+				}
+				else
+                {
+					for (int i = 0; i < tor._array.Count; i++)
+
+				}
+
+				return eq;
 			}
 			else
             {

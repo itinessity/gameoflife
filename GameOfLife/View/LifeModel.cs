@@ -80,7 +80,7 @@ namespace GameOfLife.View
 
 		public bool Next()
 		{
-			bool changed = false;
+			var changed = true;
 			var prev = new LifeTorus(Dimension);
 			_current.CopyTo(prev);
 
@@ -88,8 +88,8 @@ namespace GameOfLife.View
 
 			SetLife();
 
-			if (!prev.Equals(_current))
-				changed = true;
+			if (prev.Equals(_current))
+				changed = false;
 
 			return changed;
 		}
