@@ -8,10 +8,13 @@ namespace GameOfLife.View
 {
     public class LifeModel
     {
-		LifeTorus _current;
-		Dimensions _dim;
-		Game _life;
-		
+		private LifeTorus _current;
+		private Dimensions _dim;
+		private Game _life;
+
+		private LifeTorus _pastprev;
+		private LifeTorus _prev;
+
 		public bool CanGoNext { get; set; }
 
 		public LifeModel(Dimensions dim, Game life)
@@ -19,6 +22,10 @@ namespace GameOfLife.View
 			_dim = dim;
 			_current = new LifeTorus(dim);
 			_life = life;
+
+			_prev = new LifeTorus(dim);
+			_pastprev = new LifeTorus(dim);
+
 			SetLife();
 		}
 
@@ -59,7 +66,10 @@ namespace GameOfLife.View
 
 		public void Clear()
 		{
-			_current.Clear();
+			_current.Clear(); 
+			_pastprev.Clear();
+			_prev.Clear();
+			_life.Clear();
 		}
 
 		public bool this[int x, int y]
@@ -81,14 +91,16 @@ namespace GameOfLife.View
 		public bool Next()
 		{
 			var changed = true;
-			var prev = new LifeTorus(Dimension);
-			_current.CopyTo(prev);
+
+
+			_prev.CopyTo(_pastprev);
+			_current.CopyTo(_prev);
 
 			CanGoNext = _life.Step();
 
 			SetLife();
 
-			if (prev.Equals(_current))
+			if (_current.Equals(_prev) && _prev.Equals(_pastprev))
 				changed = false;
 
 			return changed;

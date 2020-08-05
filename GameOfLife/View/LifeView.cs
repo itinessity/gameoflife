@@ -13,17 +13,22 @@ namespace GameOfLife
     public class LifeView: FrameworkElement
     {
 		#region Fields
-		Pen _greyPen = new Pen(Brushes.Gray, 1);
+		private Pen _greyPen = new Pen(Brushes.Gray, 1);
 
-		Point _offset = new Point(0.0, 0.0);
-		LifeModel _model;
-		Location _last;
-		Game _game;
 
-		List<Visual> _visuals = new List<Visual>();
-		DrawingVisual _gridVisual = new DrawingVisual();
-		DrawingVisual _cellsVisual = new DrawingVisual();
-		DrawingVisual _adornerVisual = new DrawingVisual();
+
+		private Point _offset = new Point(0.0, 0.0);
+		private LifeModel _model;
+		private Location _last;
+		private Game _game;
+
+		private List<Visual> _visuals = new List<Visual>();
+		private DrawingVisual _gridVisual = new DrawingVisual();
+		private DrawingVisual _cellsVisual = new DrawingVisual();
+		private DrawingVisual _adornerVisual = new DrawingVisual();
+
+		private const int _defaultwidth = 10;
+		private const int _defaultheigth = 10;
 		#endregion
 
 		#region Dependency properties
@@ -45,7 +50,7 @@ namespace GameOfLife
 
 		public static readonly DependencyProperty DimensionsProperty =
 			DependencyProperty.Register("Dimensions", typeof(Dimensions), typeof(LifeView),
-				new FrameworkPropertyMetadata(new Dimensions(64, 64), FrameworkPropertyMetadataOptions.AffectsMeasure, DimensionsChangedCallback));
+				new FrameworkPropertyMetadata(new Dimensions(_defaultwidth, _defaultheigth), FrameworkPropertyMetadataOptions.AffectsMeasure, DimensionsChangedCallback));
 
 		static void DimensionsChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
 		{

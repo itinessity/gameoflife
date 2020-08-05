@@ -19,7 +19,7 @@ namespace GameOfLife
         private Game LifeGame;
 
         public ICommand RunCommand => new RelayCommand(() => Run());
-
+        public ICommand ClearCommand => new RelayCommand(() => Clear());
 
         public int StepCount
         {
@@ -34,13 +34,20 @@ namespace GameOfLife
             View = new LifeView(LifeGame);
         }
 
-        public void Run()
+        private void Run()
         {
             var result = View.Next();
             StepCount = View.Generation;
 
             if (!result)
-                MessageBox.Show("Game Over!");
+                MessageBox.Show("Game is over!");
         }
+
+        private void Clear()
+        {
+            StepCount = 0;
+            View.Clear();
+        }
+
     }
 }

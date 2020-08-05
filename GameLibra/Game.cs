@@ -35,6 +35,12 @@ namespace GameOfLife
             return Algoritm.Step();
         }
 
+        public void Clear()
+        {
+            CountSteps = 0;
+            Algoritm.Now.AliveCells.Clear();
+        }
+
         public void Run()
         {
             var CountSteps = 0;

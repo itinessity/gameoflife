@@ -16,7 +16,7 @@
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Button Content="Next" Width="auto" Command="{Binding RunCommand}"/>
-            <Button Content="Clear" Width="auto" Command="{Binding RunCommand}"/>
+            <Button Content="Clear" Width="auto" Command="{Binding ClearCommand}"/>
             <Label Content="Generations:"></Label>
             <Label Content="{Binding StepCount}"></Label>
         </StackPanel>

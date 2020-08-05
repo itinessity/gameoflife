@@ -17,7 +17,7 @@ namespace GameOfLife.View
 		{
 			_width = dim.Width;
 			_height = dim.Height;
-			int size = _width * _height;
+			var size = _width * _height;
 			_array = new BitArray(size);
 		}
 
@@ -28,12 +28,16 @@ namespace GameOfLife.View
 
 		public void CopyTo(LifeTorus dest)
 		{
-			// Copies this torus to another usually differently sized torus
-			int width = Math.Min(this._width, dest._width);
-			int height = Math.Min(this._height, dest._height);
-			for (int x = 0; x < width; x++)
-				for (int y = 0; y < height; y++)
-					dest[x, y] = this[x, y];
+			dest._width = this._width;
+			dest._height = this._height;
+			var size = _width * _height;
+			dest._array = new BitArray(size);
+
+			for (int i = 0; i < this._array.Count; i++)
+			{
+				dest._array[i] = this._array[i];
+			}
+
 		}
 
 		public bool this[int x, int y]
@@ -78,6 +82,13 @@ namespace GameOfLife.View
 				else
                 {
 					for (int i = 0; i < tor._array.Count; i++)
+                    {
+						if (tor._array[i] != _array[i])
+						{
+							eq = false;
+							break;
+						}
+					}
 
 				}
 
